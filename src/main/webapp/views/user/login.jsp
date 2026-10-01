@@ -1,0 +1,3 @@
+<%@ page contentType="text/html;charset=UTF-8" %><%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<title>Đăng nhập | BookVerse</title>
+<section class="auth"><div class="auth-image"><h1>Đọc nhiều hơn.<br><em>Sống sâu hơn.</em></h1></div><form method="post"><input type="hidden" name="next" value="${param.next}"><h1>Chào mừng trở lại</h1><p>Đăng nhập để tiếp tục hành trình cùng BookVerse.</p><c:if test="${not empty error}"><p class="error">${error}</p></c:if><label>Email<input name="email" type="email" required></label><label>Mật khẩu<input name="password" type="password" required></label><button>Đăng nhập →</button><p>Chưa có tài khoản? <a href="register">Đăng ký</a></p></form></section>

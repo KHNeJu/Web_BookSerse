@@ -1,0 +1,3 @@
+package vn.edu.bookverse.entity;
+import jakarta.persistence.*; import java.time.*;
+@Entity(name="Rating") @Table(name="rating") public class Review_24162040 { @Id @GeneratedValue(strategy=GenerationType.IDENTITY) public Long id; @ManyToOne(optional=false) @JoinColumn(name="bookid") public Book_24162040 book; @ManyToOne(optional=false) @JoinColumn(name="userid") public User_24162040 user; @Column(nullable=false) public int rating; @Column(name="review_text",nullable=false,length=1500) public String content; public LocalDateTime createdAt=LocalDateTime.now(); public User_24162040 getUser(){return user;} public int getRating(){return rating;} public String getContent(){return content;} public LocalDateTime getCreatedAt(){return createdAt;} }

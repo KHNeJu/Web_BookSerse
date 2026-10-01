@@ -1,0 +1,3 @@
+package vn.edu.bookverse.repository;
+import vn.edu.bookverse.entity.*; import vn.edu.bookverse.config.Jpa_24162040; import jakarta.persistence.*;
+public class UserRepository_24162040 { public User_24162040 byEmail(String email){EntityManager e=Jpa_24162040.em();try{return e.createQuery("from User u where u.email=:e",User_24162040.class).setParameter("e",email).getResultStream().findFirst().orElse(null);}finally{e.close();}} public void save(User_24162040 u){EntityManager e=Jpa_24162040.em();e.getTransaction().begin();if(u.id==null)e.persist(u);else e.merge(u);e.getTransaction().commit();e.close();} }

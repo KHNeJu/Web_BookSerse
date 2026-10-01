@@ -1,0 +1,9 @@
+target/
+.m2/
+data/
+tomcat-base/
+uploads/
+*.log
+.idea/
+.vscode/
+*.iml
