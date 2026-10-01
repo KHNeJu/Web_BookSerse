@@ -4,7 +4,6 @@ import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import vn.edu.bookverse.entity.User_24162040;
 import vn.edu.bookverse.repository.UserRepository_24162040;
-import java.io.Console;
 import java.security.*;
 import java.time.*;
 import java.util.*;
@@ -37,13 +36,9 @@ public class AuthService_24162040 {
 
     private void sendMail(String email, String code) throws MessagingException {
         String username = System.getenv("BOOKVERSE_SMTP_USER");
-        if (username == null || username.isBlank()) throw new MessagingException("Chưa cấu hình email gửi OTP.");
-        Console console = System.console();
-        if (console == null) throw new MessagingException("Không thấy terminal để nhập Gmail App Password. Hãy chạy .\\run.ps1 trong terminal VS Code.");
-        char[] secret = console.readPassword("Enter Gmail app password (16 characters): ");
-        if (secret == null || secret.length == 0) throw new MessagingException("Chưa nhập Gmail App Password.");
-        String password = new String(secret);
-        Arrays.fill(secret, '\0');
+        String password = System.getenv("BOOKVERSE_SMTP_PASSWORD");
+        if (username == null || username.isBlank() || password == null || password.isBlank())
+            throw new MessagingException("Chưa cấu hình BOOKVERSE_SMTP_USER và BOOKVERSE_SMTP_PASSWORD.");
 
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com"); properties.put("mail.smtp.port", "587");
@@ -53,8 +48,8 @@ public class AuthService_24162040 {
         });
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(username)); message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-        message.setSubject("BookVerse - Xác thực đăng ký");
-        message.setText("Mã OTP của bạn: " + code + "\nMã có hiệu lực 5 phút. Không chia sẻ mã với người khác.");
+        message.setSubject("BookVerse - Xác thực đăng ký", "UTF-8");
+        message.setText("Mã OTP của bạn: " + code + "\nMã có hiệu lực 5 phút. Không chia sẻ mã với người khác.", "UTF-8");
         Transport.send(message);
     }
 

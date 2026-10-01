@@ -14,13 +14,15 @@ Open `http://localhost:8081/`.
 
 ## OTP flow
 
-The app starts without asking for a Gmail password. Fill in the registration form in the browser and click **Dang ky**. The VS Code terminal then asks:
+Configure the Gmail App Password once in Windows PowerShell:
 
-```text
-Enter Gmail app password (16 characters):
+```powershell
+[Environment]::SetEnvironmentVariable('BOOKVERSE_SMTP_PASSWORD', 'your-16-character-app-password', 'User')
 ```
 
-Enter the Gmail App Password (the text is hidden). The OTP is sent to the email entered in the form. The new account is saved to the database only after the correct OTP is submitted within 5 minutes.
+Restart the VS Code terminal, then run `.\run.ps1`. Registration now sends OTP automatically without requesting the App Password again. The new account is saved only after the correct OTP is submitted within 5 minutes.
+
+Do not put the App Password in `run.ps1`, source code, or Git. If the Gmail password changes, update the environment variable with the same command.
 
 Default admin: `admin@bookverse.vn` / `Admin@123`.
 
